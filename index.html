@@ -75,7 +75,7 @@
         input[type="email"],
         input[type="url"],
         input[type="number"],
-        textarea,
+        textarea, /* Applied to textareas as well */
         select {
             width: 100%; /* Take full width of container */
             padding: 5px 2px 4px 2px; /* Adjust padding */
@@ -88,11 +88,22 @@
             font-size: 0.95em; /* Slightly larger input font */
             line-height: 1.4;
         }
+
+        /* Textarea specific styles */
         textarea {
-            height: 60px; /* Adjust height */
-            resize: vertical;
-            overflow: auto; /* Add scroll if needed */
+            resize: vertical; /* Permitir redimensionamiento vertical */
+            overflow: auto; /* Mostrar scroll si el contenido excede */
+            min-height: 30px; /* Altura mínima similar a un input */
+            line-height: 1.4; /* Ensure consistent line height */
         }
+        /* Adjustments for specific longer textareas */
+        #account_purpose_explain,
+        #funds_origin_explain,
+        #significant_transaction {
+             min-height: 60px; /* Restore slightly larger min-height */
+             /* Uses rows attribute from HTML */
+        }
+
         /* Remove arrow for number input in some browsers */
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
@@ -164,12 +175,14 @@
         /* Shareholder/Director Side-by-Side Layout */
         .side-by-side-container {
             display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
             gap: 40px; /* Space between the two sections */
             margin-top: 20px;
         }
         .shareholder-section,
         .director-section {
             flex: 1; /* Each takes half the space */
+            min-width: 250px; /* Minimum width before wrapping */
         }
 
         /* Dynamic Row Styling (Replaces Table) */
@@ -291,6 +304,44 @@
              display: inline; /* Keep on same line as radio */
          }
 
+         /* Styling for dynamic grid rows (transfers, customers, vendors) */
+         .dynamic-grid-row {
+             display: grid;
+             /* Default to 4 columns + action */
+             grid-template-columns: repeat(4, 1fr) auto;
+             gap: 5px 15px;
+             align-items: baseline;
+             margin-bottom: 5px;
+             border-bottom: 1px dotted #eee; /* Light separator */
+             padding-bottom: 5px;
+         }
+         .dynamic-grid-row label { /* Hide labels in grid rows by default */
+              display: none;
+         }
+         .dynamic-grid-row input {
+             margin-bottom: 0; /* Remove default margin */
+         }
+         /* Adjust columns for customer/vendor */
+         .customer-row, .vendor-row {
+             grid-template-columns: repeat(3, 1fr) auto;
+         }
+         /* Hide unnecessary grid cells if template changes */
+          .dynamic-grid-row > div:last-child { /* Target action button container */
+              margin-left: auto;
+          }
+
+          /* Small style adjustments for specific tables */
+          #foreseenActivityTable {
+              border-top: 1px solid #ccc;
+              padding-top: 10px;
+              margin-top: 1.5em;
+          }
+          #foreseenActivityTable input[type="number"] {
+               width: 80%; /* Slightly smaller number inputs in table */
+          }
+          #foreseenActivityTable .radio-group label { font-size: 0.9em; margin-right: 10px; }
+
+
     </style>
 </head>
 <body>
@@ -320,7 +371,7 @@
                 <input type="date" id="tax_id_expiration" name="tax_id_expiration">
             </div>
              <div class="grid-item span-2"> <label for="commercial_activity_desc">Commercial activity</label>
-                <input type="text" id="commercial_activity_desc" name="commercial_activity_desc">
+                 <textarea id="commercial_activity_desc" name="commercial_activity_desc" rows="1"></textarea>
             </div>
 
              <div class="grid-item span-1"> <label for="incorporation_registry">Incorporation/Registry</label>
@@ -459,74 +510,23 @@
              <label><input type="checkbox" name="person1_role[]" value="Control Person"> Control person</label>
         </div>
         <div class="grid-container signer-section-grid">
-             <div class="grid-item span-1">
-                <label for="person1_shares">% of shares</label>
-                <input type="number" id="person1_shares" name="person1_shares" min="0" max="100" step="0.01">
-            </div>
-            <div class="grid-item span-1">
-                <label for="person1_position">Position</label>
-                <input type="text" id="person1_position" name="person1_position">
-            </div>
-            <div class="grid-item span-2">
-                <label for="person1_profession">Profession</label>
-                <input type="text" id="person1_profession" name="person1_profession">
-            </div>
-            <div class="grid-item span-4">
-                <label for="person1_poa">Information of power of attorney certifying representation</label>
-                <input type="text" id="person1_poa" name="person1_poa">
-            </div>
-            <div class="grid-item span-2">
-                <label for="person1_names">Names</label>
-                <input type="text" id="person1_names" name="person1_names">
-            </div>
-            <div class="grid-item span-2">
-                <label for="person1_surnames">Surnames</label>
-                <input type="text" id="person1_surnames" name="person1_surnames">
-            </div>
-            <div class="grid-item span-1">
-                <label for="person1_dob">Date of birth</label>
-                <input type="date" id="person1_dob" name="person1_dob">
-            </div>
-             <div class="grid-item span-3">
-                <label for="person1_res_address">Residential address</label>
-                <input type="text" id="person1_res_address" name="person1_res_address">
-            </div>
-             <div class="grid-item span-1">
-                 <label for="person1_res_city">City</label>
-                 <input type="text" id="person1_res_city" name="person1_res_city">
-             </div>
-             <div class="grid-item span-1">
-                 <label for="person1_res_state">State/Province</label>
-                 <input type="text" id="person1_res_state" name="person1_res_state">
-             </div>
-             <div class="grid-item span-1">
-                 <label for="person1_res_zip">ZIP code</label>
-                 <input type="text" id="person1_res_zip" name="person1_res_zip">
-             </div>
-             <div class="grid-item span-1">
-                 <label for="person1_res_country">Country</label>
-                 <input type="text" id="person1_res_country" name="person1_res_country">
-             </div>
-             <div class="grid-item span-1">
-                <label for="person1_primary_id">Primary identification number</label>
-                <input type="text" id="person1_primary_id" name="person1_primary_id">
-            </div>
-            <div class="grid-item span-1">
-                <label for="person1_primary_id_type">Type of identification</label>
-                <input type="text" id="person1_primary_id_type" name="person1_primary_id_type">
-            </div>
-             <div class="grid-item span-2">
-                <label for="person1_primary_id_other">If other, please explain</label>
-                <input type="text" id="person1_primary_id_other" name="person1_primary_id_other">
-            </div>
-             <div class="grid-item span-2">
-                <label for="person1_primary_id_exp">Expiration date</label>
-                <input type="date" id="person1_primary_id_exp" name="person1_primary_id_exp">
-            </div>
-             <div class="grid-item span-2">
-                <label for="person1_primary_id_country">Issuing country</label>
-                <input type="text" id="person1_primary_id_country" name="person1_primary_id_country">
-            </div>
+             <div class="grid-item span-1"><label for="person1_shares">% of shares</label><input type="number" id="person1_shares" name="person1_shares" min="0" max="100" step="0.01"></div>
+             <div class="grid-item span-1"><label for="person1_position">Position</label><input type="text" id="person1_position" name="person1_position"></div>
+             <div class="grid-item span-2"><label for="person1_profession">Profession</label><input type="text" id="person1_profession" name="person1_profession"></div>
+             <div class="grid-item span-4"><label for="person1_poa">Information of power of attorney certifying representation</label><input type="text" id="person1_poa" name="person1_poa"></div>
+             <div class="grid-item span-2"><label for="person1_names">Names</label><input type="text" id="person1_names" name="person1_names"></div>
+             <div class="grid-item span-2"><label for="person1_surnames">Surnames</label><input type="text" id="person1_surnames" name="person1_surnames"></div>
+             <div class="grid-item span-1"><label for="person1_dob">Date of birth</label><input type="date" id="person1_dob" name="person1_dob"></div>
+             <div class="grid-item span-3"><label for="person1_res_address">Residential address</label><input type="text" id="person1_res_address" name="person1_res_address"></div>
+             <div class="grid-item span-1"><label for="person1_res_city">City</label><input type="text" id="person1_res_city" name="person1_res_city"></div>
+             <div class="grid-item span-1"><label for="person1_res_state">State/Province</label><input type="text" id="person1_res_state" name="person1_res_state"></div>
+             <div class="grid-item span-1"><label for="person1_res_zip">ZIP code</label><input type="text" id="person1_res_zip" name="person1_res_zip"></div>
+             <div class="grid-item span-1"><label for="person1_res_country">Country</label><input type="text" id="person1_res_country" name="person1_res_country"></div>
+             <div class="grid-item span-1"><label for="person1_primary_id">Primary identification number</label><input type="text" id="person1_primary_id" name="person1_primary_id"></div>
+             <div class="grid-item span-1"><label for="person1_primary_id_type">Type of identification</label><input type="text" id="person1_primary_id_type" name="person1_primary_id_type"></div>
+             <div class="grid-item span-2"><label for="person1_primary_id_other">If other, please explain</label><input type="text" id="person1_primary_id_other" name="person1_primary_id_other"></div>
+             <div class="grid-item span-2"><label for="person1_primary_id_exp">Expiration date</label><input type="date" id="person1_primary_id_exp" name="person1_primary_id_exp"></div>
+             <div class="grid-item span-2"><label for="person1_primary_id_country">Issuing country</label><input type="text" id="person1_primary_id_country" name="person1_primary_id_country"></div>
              <div class="grid-item radio-group pep-radio-group span-4">
                  <label>Are you politically exposed person?</label>
                  <label><input type="radio" name="person1_pep" value="Yes"> Yes</label>
@@ -544,62 +544,23 @@
         </div>
         <h4>SECTION II - To be completed only by the signers of the account.</h4>
          <div class="grid-container signer-section-grid">
-            <div class="grid-item span-1">
-                <label for="person1_marital">Marital status</label>
-                <input type="text" id="person1_marital" name="person1_marital">
-            </div>
-            <div class="grid-item span-1">
-                <label for="person1_nationality">Nationality</label>
-                <input type="text" id="person1_nationality" name="person1_nationality">
-            </div>
-            <div class="grid-item span-2">
-                <label for="person1_other_nationality">Other nationality</label>
-                <input type="text" id="person1_other_nationality" name="person1_other_nationality">
-            </div>
-             <div class="grid-item span-1">
-                 <label for="person1_secondary_id">Secondary identification number</label>
-                 <input type="text" id="person1_secondary_id" name="person1_secondary_id">
-             </div>
-             <div class="grid-item span-1">
-                 <label for="person1_secondary_id_type">Type of identification</label>
-                 <input type="text" id="person1_secondary_id_type" name="person1_secondary_id_type">
-             </div>
-              <div class="grid-item span-2">
-                 <label for="person1_secondary_id_other">If other, please explain</label>
-                 <input type="text" id="person1_secondary_id_other" name="person1_secondary_id_other">
-             </div>
-              <div class="grid-item span-2">
-                 <label for="person1_secondary_id_exp">Expiration date</label>
-                 <input type="date" id="person1_secondary_id_exp" name="person1_secondary_id_exp">
-             </div>
-              <div class="grid-item span-2">
-                 <label for="person1_secondary_id_country">Issuing country</label>
-                 <input type="text" id="person1_secondary_id_country" name="person1_secondary_id_country">
-             </div>
-             <div class="grid-item span-4">
-                 <label for="person1_mailing_address">Mailing address (if different)</label>
-                 <input type="text" id="person1_mailing_address" name="person1_mailing_address">
-             </div>
-             <div class="grid-item span-4">
-                 <label for="person1_mailing_details">City, State, ZIP code, Country</label>
-                 <input type="text" id="person1_mailing_details" name="person1_mailing_details">
-             </div>
-             <div class="grid-item span-1">
-                 <label for="person1_res_tel">Residential telephone No.</label>
-                 <input type="tel" id="person1_res_tel" name="person1_res_tel">
-             </div>
-             <div class="grid-item span-1">
-                 <label for="person1_alt_tel">Alternate telephone No.</label>
-                 <input type="tel" id="person1_alt_tel" name="person1_alt_tel">
-             </div>
-              <div class="grid-item span-2">
-                 <label for="person1_email">Email</label>
-                 <input type="email" id="person1_email" name="person1_email">
-             </div>
-        </div>
+            <div class="grid-item span-1"><label for="person1_marital">Marital status</label><input type="text" id="person1_marital" name="person1_marital"></div>
+            <div class="grid-item span-1"><label for="person1_nationality">Nationality</label><input type="text" id="person1_nationality" name="person1_nationality"></div>
+            <div class="grid-item span-2"><label for="person1_other_nationality">Other nationality</label><input type="text" id="person1_other_nationality" name="person1_other_nationality"></div>
+            <div class="grid-item span-1"><label for="person1_secondary_id">Secondary identification number</label><input type="text" id="person1_secondary_id" name="person1_secondary_id"></div>
+            <div class="grid-item span-1"><label for="person1_secondary_id_type">Type of identification</label><input type="text" id="person1_secondary_id_type" name="person1_secondary_id_type"></div>
+            <div class="grid-item span-2"><label for="person1_secondary_id_other">If other, please explain</label><input type="text" id="person1_secondary_id_other" name="person1_secondary_id_other"></div>
+            <div class="grid-item span-2"><label for="person1_secondary_id_exp">Expiration date</label><input type="date" id="person1_secondary_id_exp" name="person1_secondary_id_exp"></div>
+            <div class="grid-item span-2"><label for="person1_secondary_id_country">Issuing country</label><input type="text" id="person1_secondary_id_country" name="person1_secondary_id_country"></div>
+            <div class="grid-item span-4"><label for="person1_mailing_address">Mailing address (if different)</label><input type="text" id="person1_mailing_address" name="person1_mailing_address"></div>
+            <div class="grid-item span-4"><label for="person1_mailing_details">City, State, ZIP code, Country</label><input type="text" id="person1_mailing_details" name="person1_mailing_details"></div>
+            <div class="grid-item span-1"><label for="person1_res_tel">Residential telephone No.</label><input type="tel" id="person1_res_tel" name="person1_res_tel"></div>
+            <div class="grid-item span-1"><label for="person1_alt_tel">Alternate telephone No.</label><input type="tel" id="person1_alt_tel" name="person1_alt_tel"></div>
+            <div class="grid-item span-2"><label for="person1_email">Email</label><input type="email" id="person1_email" name="person1_email"></div>
+         </div>
 
         <hr> <h3>Signer/Control Person/Stockholder Information 2</h3>
-         <h4>SECTION I - Check if you are a Signer, Shareholder and/or Control person...</h4>
+          <h4>SECTION I - Check if you are a Signer, Shareholder and/or Control person...</h4>
           <div class="checkbox-group">
              <label><input type="checkbox" name="person2_role[]" value="Signer"> Signer</label>
              <label><input type="checkbox" name="person2_role[]" value="Stockholder"> Stockholder</label>
@@ -653,7 +614,7 @@
           </div>
 
         <hr> <h3>Signer/Control Person/Stockholder Information 3</h3>
-         <h4>SECTION I - Check if you are a Signer, Shareholder and/or Control person...</h4>
+          <h4>SECTION I - Check if you are a Signer, Shareholder and/or Control person...</h4>
           <div class="checkbox-group">
              <label><input type="checkbox" name="person3_role[]" value="Signer"> Signer</label>
              <label><input type="checkbox" name="person3_role[]" value="Stockholder"> Stockholder</label>
@@ -763,7 +724,7 @@
              </div>
              <div class="grid-item span-4">
                 <label for="initial_deposit_origin">Explain origin or concept of the initial deposit</label>
-                <textarea id="initial_deposit_origin" name="initial_deposit_origin"></textarea>
+                <textarea id="initial_deposit_origin" name="initial_deposit_origin" rows="2"></textarea>
             </div>
          </div>
     </div>
@@ -771,7 +732,7 @@
     <div class="section">
         <h2>SECTION V: Account Profile</h2>
         <label>Purpose of the account:</label>
-        <div class="checkbox-group" style="columns: 3; -webkit-columns: 3; -moz-columns: 3;">
+        <div class="checkbox-group" style="columns: 3; -webkit-columns: 3; -moz-columns: 3; margin-bottom: 20px;">
              <label><input type="checkbox" name="account_purpose[]" value="Provider Payments"> Payment to providers</label>
              <label><input type="checkbox" name="account_purpose[]" value="Client Payments"> Client payment</label>
              <label><input type="checkbox" name="account_purpose[]" value="Import"> Import</label>
@@ -782,82 +743,90 @@
              <label><input type="checkbox" name="account_purpose[]" value="Other"> Other</label>
         </div>
          <label for="account_purpose_explain">Explain purpose of the account</label>
-         <textarea id="account_purpose_explain" name="account_purpose_explain"></textarea>
+         <textarea id="account_purpose_explain" name="account_purpose_explain" rows="2"></textarea>
 
          <label for="funds_origin_explain">Explain origin or concept of the funds entering the account</label>
-         <textarea id="funds_origin_explain" name="funds_origin_explain"></textarea>
+         <textarea id="funds_origin_explain" name="funds_origin_explain" rows="2"></textarea>
 
-         <h3>Information about the foreseen activity of the account</h3>
+         <h3 style="margin-top: 2.5em;">Information about the foreseen activity of the account</h3>
          <p>Complete all the transactions foreseen to be made. In the case of any foreseen transaction, please mark the option "None".</p>
-          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 5px 15px; align-items: end; border-top: 1px solid #ccc; padding-top: 10px;">
+          <div id="foreseenActivityTable" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 5px 15px; align-items: end;">
              <div style="font-weight: bold; font-size: 0.9em;">Transaction Type</div>
              <div style="font-weight: bold; font-size: 0.9em;">No. of transactions</div>
              <div style="font-weight: bold; font-size: 0.9em;">Total ($)</div>
              <div style="font-weight: bold; font-size: 0.9em;">Frequency</div>
              <div>Check deposits</div>
-             <div><input type="number" name="activity_check_deposits_no" style="margin-bottom: 5px;"></div>
-             <div><input type="number" name="activity_check_deposits_total" step="0.01" style="margin-bottom: 5px;"></div>
-             <div class="radio-group" style="margin-bottom: 5px;">
+             <div><input type="number" name="activity_check_deposits_no"></div>
+             <div><input type="number" name="activity_check_deposits_total" step="0.01"></div>
+             <div class="radio-group">
                  <label><input type="radio" name="activity_check_deposits_freq" value="Monthly"> Monthly</label>
                  <label><input type="radio" name="activity_check_deposits_freq" value="Annual"> Annual</label>
                  <label><input type="radio" name="activity_check_deposits_freq" value="None" checked> None</label>
              </div>
              <div>Check payments</div>
-              <div><input type="number" name="activity_check_payments_no" style="margin-bottom: 5px;"></div>
-              <div><input type="number" name="activity_check_payments_total" step="0.01" style="margin-bottom: 5px;"></div>
-              <div class="radio-group" style="margin-bottom: 5px;">
+              <div><input type="number" name="activity_check_payments_no"></div>
+              <div><input type="number" name="activity_check_payments_total" step="0.01"></div>
+              <div class="radio-group">
                   <label><input type="radio" name="activity_check_payments_freq" value="Monthly"> Monthly</label>
                   <label><input type="radio" name="activity_check_payments_freq" value="Annual"> Annual</label>
                   <label><input type="radio" name="activity_check_payments_freq" value="None" checked> None</label>
               </div>
               <div>Incoming transfers</div>
-               <div><input type="number" name="activity_incoming_transfers_no" style="margin-bottom: 5px;"></div>
-               <div><input type="number" name="activity_incoming_transfers_total" step="0.01" style="margin-bottom: 5px;"></div>
-               <div class="radio-group" style="margin-bottom: 5px;">
+               <div><input type="number" name="activity_incoming_transfers_no"></div>
+               <div><input type="number" name="activity_incoming_transfers_total" step="0.01"></div>
+               <div class="radio-group">
                   <label><input type="radio" name="activity_incoming_transfers_freq" value="Monthly"> Monthly</label>
                   <label><input type="radio" name="activity_incoming_transfers_freq" value="Annual"> Annual</label>
                   <label><input type="radio" name="activity_incoming_transfers_freq" value="None" checked> None</label>
               </div>
               <div>Outgoing transfers</div>
-               <div><input type="number" name="activity_outgoing_transfers_no" style="margin-bottom: 5px;"></div>
-               <div><input type="number" name="activity_outgoing_transfers_total" step="0.01" style="margin-bottom: 5px;"></div>
-               <div class="radio-group" style="margin-bottom: 5px;">
+               <div><input type="number" name="activity_outgoing_transfers_no"></div>
+               <div><input type="number" name="activity_outgoing_transfers_total" step="0.01"></div>
+               <div class="radio-group">
                   <label><input type="radio" name="activity_outgoing_transfers_freq" value="Monthly"> Monthly</label>
                   <label><input type="radio" name="activity_outgoing_transfers_freq" value="Annual"> Annual</label>
                   <label><input type="radio" name="activity_outgoing_transfers_freq" value="None" checked> None</label>
                </div>
                <div>Check Deposits, outside P.R./EE.UU</div>
-                <div><input type="number" name="activity_check_deposits_ext_no" style="margin-bottom: 5px;"></div>
-                <div><input type="number" name="activity_check_deposits_ext_total" step="0.01" style="margin-bottom: 5px;"></div>
-                <div class="radio-group" style="margin-bottom: 5px;">
+                <div><input type="number" name="activity_check_deposits_ext_no"></div>
+                <div><input type="number" name="activity_check_deposits_ext_total" step="0.01"></div>
+                <div class="radio-group">
                   <label><input type="radio" name="activity_check_deposits_ext_freq" value="Monthly"> Monthly</label>
                   <label><input type="radio" name="activity_check_deposits_ext_freq" value="Annual"> Annual</label>
                   <label><input type="radio" name="activity_check_deposits_ext_freq" value="None" checked> None</label>
                </div>
          </div>
 
-         <h3 style="margin-top: 2em;">Specify the Incoming recurring transfers.</h3>
+         <h3 style="margin-top: 2.5em;">Specify the Incoming recurring transfers.</h3>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span>Financial Institution</span><span></span>
+         </div>
          <div id="incomingTransfersContainer">
              </div>
           <div class="dynamic-controls">
              <button type="button" class="button add-button" onclick="addRow('incomingTransfersContainer', 'incoming')">Add Incoming Transfer</button>
          </div>
 
-         <h3 style="margin-top: 2em;">Specify the Outgoing recurring transfers.</h3>
+         <h3 style="margin-top: 2.5em;">Specify the Outgoing recurring transfers.</h3>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span>Financial Institution</span><span></span>
+         </div>
          <div id="outgoingTransfersContainer">
              </div>
          <div class="dynamic-controls">
             <button type="button" class="button add-button" onclick="addRow('outgoingTransfersContainer', 'outgoing')">Add Outgoing Transfer</button>
          </div>
 
-        <h3 style="margin-top: 2em;">Main customers</h3>
+        <h3 style="margin-top: 2.5em;">Main customers</h3>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span></span>
+         </div>
         <div id="mainCustomersContainer">
             </div>
          <div class="dynamic-controls">
              <button type="button" class="button add-button" onclick="addRow('mainCustomersContainer', 'customer')">Add Customer</button>
          </div>
 
-        <h3 style="margin-top: 2em;">Main vendors</h3>
+        <h3 style="margin-top: 2.5em;">Main vendors</h3>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span></span>
+         </div>
         <div id="mainVendorsContainer">
              </div>
         <div class="dynamic-controls">
@@ -865,7 +834,7 @@
          </div>
 
 
-         <h3 style="margin-top: 2em;">Transfer details</h3>
+         <h3 style="margin-top: 2.5em;">Transfer details</h3>
           <div class="checkbox-group grid-container"> <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Intercompany"> Payment between companies</label>
              <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Retailers"> Payment to retailers</label>
              <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Remittance"> Remittance services</label>
@@ -902,7 +871,7 @@
 
 
          <label for="significant_transaction">Is there a significant transaction expected? (e.g., property purchase/sale, investment)</label>
-         <textarea id="significant_transaction" name="significant_transaction"></textarea>
+         <textarea id="significant_transaction" name="significant_transaction" rows="2"></textarea>
 
          <label>Does your business perform any of the following activities? (Check all that apply).</label>
          <div class="checkbox-group grid-container">
@@ -942,7 +911,7 @@
               <div><label>Identification No.</label></div>
               <div><label>Position</label></div>
               <div><label>Date (mm/dd/yyyy)</label></div>
-              <div><label>Account holder</label></div>
+              <div style="text-align:center;"><label>Account holder</label></div>
 
               <div><input type="text" id="sigA_name" name="sigA_name"></div>
               <div><div class="signature-area"></div></div>
@@ -1006,7 +975,7 @@
                  <input type="date" id="internal_date_opened" name="internal_date_opened">
              </div>
 
-             <hr style="grid-column: 1 / -1;"> <div class="grid-item">
+             <hr style="grid-column: 1 / -1; border-top: 1px dashed #ccc; margin: 15px 0;"> <div class="grid-item">
                 <label for="internal_reviewed_by">Reviewed by: Names Officer 1</label>
                 <input type="text" id="internal_reviewed_by" name="internal_reviewed_by">
             </div>
@@ -1019,7 +988,7 @@
                  <input type="date" id="internal_reviewed_date" name="internal_reviewed_date">
              </div>
 
-             <hr style="grid-column: 1 / -1;"> <div class="grid-item">
+             <hr style="grid-column: 1 / -1; border-top: 1px dashed #ccc; margin: 15px 0;"> <div class="grid-item">
                 <label for="internal_approved_by">Approved by: Names Officer 2</label>
                 <input type="text" id="internal_approved_by" name="internal_approved_by">
             </div>
@@ -1042,7 +1011,6 @@
         // --- JavaScript for Dynamic Tables ---
 
         // Define the structure for each dynamic table row
-        // Updated to use DIVs and classes for new layout
          const dynamicRowTemplates = {
              shareholder: `
                  <div class="dynamic-row shareholder-row">
@@ -1059,7 +1027,7 @@
                  </div>
              `,
              incoming: `
-                 <div class="dynamic-row incoming-transfer-row" style="display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; align-items: baseline;">
+                 <div class="dynamic-grid-row incoming-transfer-row">
                      <div><label>Name</label><input type="text" name="incoming_transfer_name[]" placeholder=" "></div>
                      <div><label>Country</label><input type="text" name="incoming_transfer_country[]" placeholder=" "></div>
                      <div><label>Relationship</label><input type="text" name="incoming_transfer_relationship[]" placeholder=" "></div>
@@ -1068,7 +1036,7 @@
                  </div>
              `,
               outgoing: `
-                 <div class="dynamic-row outgoing-transfer-row" style="display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; align-items: baseline;">
+                 <div class="dynamic-grid-row outgoing-transfer-row">
                      <div><label>Name</label><input type="text" name="outgoing_transfer_name[]" placeholder=" "></div>
                      <div><label>Country</label><input type="text" name="outgoing_transfer_country[]" placeholder=" "></div>
                      <div><label>Relationship</label><input type="text" name="outgoing_transfer_relationship[]" placeholder=" "></div>
@@ -1077,7 +1045,7 @@
                  </div>
              `,
               customer: `
-                  <div class="dynamic-row customer-row" style="display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; align-items: baseline;">
+                  <div class="dynamic-grid-row customer-row">
                      <div><label>Name</label><input type="text" name="customer_name[]" placeholder=" "></div>
                      <div><label>Country</label><input type="text" name="customer_country[]" placeholder=" "></div>
                      <div><label>Relationship</label><input type="text" name="customer_relationship[]" placeholder=" "></div>
@@ -1085,7 +1053,7 @@
                  </div>
              `,
               vendor: `
-                  <div class="dynamic-row vendor-row" style="display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; align-items: baseline;">
+                  <div class="dynamic-grid-row vendor-row">
                      <div><label>Name</label><input type="text" name="vendor_name[]" placeholder=" "></div>
                      <div><label>Country</label><input type="text" name="vendor_country[]" placeholder=" "></div>
                      <div><label>Relationship</label><input type="text" name="vendor_relationship[]" placeholder=" "></div>
@@ -1110,26 +1078,25 @@
 
             // Create a new div element and set its innerHTML
             const newRowDiv = document.createElement('div');
-            newRowDiv.innerHTML = templateHtml;
+            // Need to wrap the template since innerHTML expects a single parent usually
+            newRowDiv.innerHTML = templateHtml.trim();
 
-            // Append the first child of the new div (which is the actual .dynamic-row div)
-             if (newRowDiv.firstElementChild) {
-                container.appendChild(newRowDiv.firstElementChild);
+             // Append the actual row element (which is the first child of the wrapper)
+             if (newRowDiv.firstChild) {
+                container.appendChild(newRowDiv.firstChild);
              } else {
-                 console.error("Template HTML might be invalid");
+                 console.error("Template HTML might be invalid or empty for type:", type);
              }
         }
 
 
         function removeSpecificRow(button) {
-            // Find the closest ancestor div with class 'dynamic-row' or similar structure
-            const row = button.closest('.dynamic-row');
+            // Updated to find closest dynamic row based on new structures
+            const row = button.closest('.dynamic-row, .dynamic-grid-row');
              if (row) {
                  row.remove(); // Remove the row from the DOM
              } else {
-                 // Fallback for grid-based dynamic rows
-                 const gridRow = button.closest('div[style*="grid-template-columns"]');
-                 if(gridRow) gridRow.remove();
+                 console.error("Could not find dynamic row parent for removal button.");
              }
         }
 
