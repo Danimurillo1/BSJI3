@@ -5,342 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corporate Deposit Account Application</title>
     <style>
+        /* --- ESTILOS GENERALES (PARA PANTALLA) --- */
         body {
             font-family: sans-serif;
-            line-height: 1.6; /* Increased line-height for better spacing */
-            margin: 20px 40px; /* Added horizontal margin */
+            line-height: 1.6;
+            margin: 20px 40px;
             position: relative;
-            padding-top: 80px; /* Increased padding for logo */
-            background-color: #fff; /* Ensure body background is white */
+            padding-top: 80px;
+            background-color: #fff;
         }
         #logo {
             position: absolute;
             top: 25px;
-            right: 40px; /* Match horizontal margin */
-            width: 120px; /* Adjusted size */
+            right: 40px;
+            width: 120px;
             height: auto;
         }
-
-        /* Titles */
         h1, h2 {
             color: #2E3168;
             font-weight: bold;
-            border-bottom: none; /* Remove default border */
+            border-bottom: none;
             padding-bottom: 5px;
             margin-top: 2em;
             margin-bottom: 1em;
         }
-         h1 {
-            margin-top: 0;
-            margin-bottom: 0.5em;
-            font-size: 1.8em; /* Larger main title */
-         }
-         h2 {
-            font-size: 1.3em;
-            border-bottom: 1px solid #555; /* Add border below H2 */
-            padding-bottom: 8px;
-            margin-bottom: 1.5em;
-         }
-        h3 {
-            color: #333;
-            border-bottom: none;
-            padding-bottom: 3px;
-            margin-top: 1.8em;
-            margin-bottom: 0.8em;
-            font-size: 1.1em;
-            font-weight: bold; /* Make H3 bold like image */
+         h1 { margin-top: 0; margin-bottom: 0.5em; font-size: 1.8em; }
+         h2 { font-size: 1.3em; border-bottom: 1px solid #555; padding-bottom: 8px; margin-bottom: 1.5em; }
+        h3 { color: #333; border-bottom: none; padding-bottom: 3px; margin-top: 1.8em; margin-bottom: 0.8em; font-size: 1.1em; font-weight: bold; }
+        .section { margin-bottom: 30px; padding: 0; border: none; background-color: transparent; }
+        label { display: block; margin-bottom: 2px; font-weight: normal; font-size: 0.85em; color: #444; }
+        input[type="text"], input[type="date"], input[type="tel"], input[type="email"], input[type="url"], input[type="number"], textarea, select {
+            width: 100%; padding: 5px 2px 4px 2px; margin-bottom: 15px; border: none; border-bottom: 1px solid #a0a0a0; background-color: transparent; border-radius: 0; box-sizing: border-box; font-size: 0.95em; line-height: 1.4;
         }
-
-        /* Section Styling Removed */
-        .section {
-            margin-bottom: 30px;
-            padding: 0; /* Remove padding */
-            border: none; /* Remove border */
-            background-color: transparent; /* Remove background */
-        }
-
-        /* Label Styling */
-        label {
-            display: block;
-            margin-bottom: 2px; /* Space between label and underline */
-            font-weight: normal; /* Labels not bold in target image */
-            font-size: 0.85em; /* Smaller label font */
-            color: #444; /* Slightly lighter label color */
-        }
-
-        /* Input Field Underline Style */
-        input[type="text"],
-        input[type="date"],
-        input[type="tel"],
-        input[type="email"],
-        input[type="url"],
-        input[type="number"],
-        textarea, /* Applied to textareas as well */
-        select {
-            width: 100%; /* Take full width of container */
-            padding: 5px 2px 4px 2px; /* Adjust padding */
-            margin-bottom: 15px; /* Space below each field */
-            border: none;
-            border-bottom: 1px solid #a0a0a0; /* Underline border */
-            background-color: transparent;
-            border-radius: 0;
-            box-sizing: border-box;
-            font-size: 0.95em; /* Slightly larger input font */
-            line-height: 1.4;
-        }
-
-        /* Textarea specific styles */
-        textarea {
-            resize: vertical; /* Permitir redimensionamiento vertical */
-            overflow: auto; /* Mostrar scroll si el contenido excede */
-            min-height: 30px; /* Altura mínima similar a un input */
-            line-height: 1.4; /* Ensure consistent line height */
-        }
-        /* Adjustments for specific longer textareas */
-        #account_purpose_explain,
-        #funds_origin_explain,
-        #significant_transaction {
-             min-height: 60px; /* Restore slightly larger min-height */
-             /* Uses rows attribute from HTML */
-        }
-
-        /* Remove arrow for number input in some browsers */
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-           -webkit-appearance: none;
-           margin: 0;
-        }
-        input[type=number] {
-           -moz-appearance: textfield; /* Firefox */
-        }
-
-
-        /* Top Date Field */
-        #app_date_container {
-             max-width: 150px; /* Limit width of date field */
-             margin-bottom: 15px;
-        }
-        #app_date_container label {
-            display: inline-block; margin-right: 5px;
-        }
-         #app_date_container input[type="date"] {
-            display: inline-block;
-            width: auto;
-            border: none; /* No border for date */
-         }
-
-        /* Grid Layout Adjustments */
-        .grid-container {
-            display: grid;
-            /* Define columns based on target layout approximation */
-            /* Example: 4 columns for flexibility */
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px 25px; /* Row gap, Column gap */
-            margin-bottom: 20px;
-        }
-        .grid-item {
-             /* Default span is 1 */
-             margin-bottom: 5px; /* Add small bottom margin to grid items */
-        }
-        /* Spanning classes */
-        .span-2 { grid-column: span 2; }
-        .span-3 { grid-column: span 3; }
-        .span-4 { grid-column: span 4; }
-
-
-        /* Specific Layouts */
-         /* Partnership Agreement Row */
-        .partnership-row {
-            display: grid;
-            grid-template-columns: auto auto 1fr; /* Adjust columns for this specific row */
-            gap: 15px;
-            align-items: end; /* Align items to bottom */
-            margin-bottom: 20px;
-        }
-         .partnership-row label {
-            margin-bottom: 2px; /* Align with other labels */
-         }
-         .partnership-row select {
-            width: auto; /* Let select size itself */
-            min-width: 80px;
-            margin-bottom: 0; /* Remove bottom margin as it's aligned */
-         }
-         .partnership-row .explain-item {
-             margin-left: 10px; /* Add space before explain */
-         }
-          .partnership-row .explain-item input {
-              margin-bottom: 0; /* Align bottom */
-          }
-
-        /* Shareholder/Director Side-by-Side Layout */
-        .side-by-side-container {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            gap: 40px; /* Space between the two sections */
-            margin-top: 20px;
-        }
-        .shareholder-section,
-        .director-section {
-            flex: 1; /* Each takes half the space */
-            min-width: 250px; /* Minimum width before wrapping */
-        }
-
-        /* Dynamic Row Styling (Replaces Table) */
-        .dynamic-list-header {
-             display: flex;
-             justify-content: space-between;
-             font-size: 0.85em;
-             color: #444;
-             margin-bottom: 5px;
-             padding: 0 5px;
-        }
-        .dynamic-list-header .col-name { flex-basis: 60%; } /* Adjust basis as needed */
+        textarea { resize: vertical; overflow: auto; min-height: 30px; line-height: 1.4; }
+        #account_purpose_explain, #funds_origin_explain, #significant_transaction { min-height: 60px; }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        #app_date_container { max-width: 200px; margin-bottom: 15px; }
+        #app_date_container label { display: inline-block; margin-right: 5px; }
+        #app_date_container input[type="date"] { display: inline-block; width: auto; border: none; }
+        .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 25px; margin-bottom: 20px; }
+        .grid-item { margin-bottom: 5px; }
+        .span-2 { grid-column: span 2; } .span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; }
+        .partnership-row { display: grid; grid-template-columns: auto auto 1fr; gap: 15px; align-items: end; margin-bottom: 20px; }
+        .partnership-row label { margin-bottom: 2px; }
+        .partnership-row select { width: auto; min-width: 80px; margin-bottom: 0; }
+        .partnership-row .explain-item { margin-left: 10px; }
+        .partnership-row .explain-item input { margin-bottom: 0; }
+        .side-by-side-container { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 20px; }
+        .shareholder-section, .director-section { flex: 1; min-width: 250px; }
+        .dynamic-list-header { display: flex; justify-content: space-between; font-size: 0.85em; color: #444; margin-bottom: 5px; padding: 0 5px; }
+        .dynamic-list-header .col-name { flex-basis: 60%; }
         .dynamic-list-header .col-perc, .dynamic-list-header .col-pos { flex-basis: 30%; text-align: left; padding-left: 10px;}
-
-
-        .dynamic-row {
-            display: flex;
-            gap: 15px; /* Gap between fields in a row */
-            margin-bottom: 0px; /* No margin below row, input margin handles it */
-            align-items: baseline; /* Align text baselines */
-        }
-        .dynamic-row input[type="text"],
-        .dynamic-row input[type="number"] {
-             margin-bottom: 8px; /* Smaller margin in dynamic rows */
-        }
-
-        /* Specific column widths within dynamic rows */
-        .shareholder-row .shareholder-name { flex: 3; } /* Name takes more space */
-        .shareholder-row .shareholder-percentage { flex: 1; }
-        .director-row .director-name { flex: 3; }
-        .director-row .director-position { flex: 2; }
-
-        /* Action button in dynamic rows */
-        .dynamic-row .action-button {
-             flex-shrink: 0; /* Prevent button from shrinking */
-             margin-left: auto; /* Push button to the right */
-             align-self: center; /* Center button vertically */
-        }
-        .dynamic-row .remove-button {
-            padding: 3px 6px; /* Smaller button */
-            font-size: 0.8em;
-            margin-bottom: 8px; /* Match input margin */
-        }
-        /* Add/Remove Buttons below dynamic sections */
-         .dynamic-controls {
-             margin-top: 5px;
-         }
-
-
-        /* Checkbox & Radio */
+        .dynamic-row { display: flex; gap: 15px; margin-bottom: 0px; align-items: baseline; }
+        .dynamic-row input[type="text"], .dynamic-row input[type="number"] { margin-bottom: 8px; }
+        .shareholder-row .shareholder-name { flex: 3; } .shareholder-row .shareholder-percentage { flex: 1; }
+        .director-row .director-name { flex: 3; } .director-row .director-position { flex: 2; }
+        .dynamic-row .action-button, .dynamic-grid-row .action-button { flex-shrink: 0; margin-left: auto; align-self: center; }
+        .dynamic-row .remove-button, .dynamic-grid-row .remove-button { padding: 3px 6px; font-size: 0.8em; margin-bottom: 8px; }
+        .dynamic-controls { margin-top: 5px; }
         .checkbox-group, .radio-group { margin-bottom: 15px; }
-        .checkbox-group label,
-        .radio-group label {
-            display: inline-block;
-            margin-right: 15px;
-            font-weight: normal;
-            font-size: 0.95em; /* Match input font size */
-            margin-bottom: 5px;
-        }
-         .checkbox-group input[type="checkbox"],
-         .radio-group input[type="radio"] {
-            margin-right: 5px;
-            vertical-align: middle; /* Align with text */
-         }
-         /* Ensure PEP inputs are aligned */
-         .pep-details span, .pep-details label, .pep-details input {
-             vertical-align: middle;
-         }
-         .pep-details input { width: auto; display: inline-block; margin-left: 3px; margin-right: 10px; }
-
-
-        /* Signature Area */
-        .signature-area {
-            border: 1px dashed #ccc;
-            height: 40px; /* Reduced height */
-            margin-top: 5px;
-            margin-bottom: 10px;
-            background-color: #f8f8f8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-style: italic;
-            font-size: 0.9em;
-        }
-
-        /* Instructions / Disclosures */
-        .instructions, .disclosures {
-             padding: 10px 0; /* Vertical padding only */
-             border: none; /* Remove border */
-             margin-bottom: 15px;
-             background-color: transparent; /* No background */
-             font-size: 0.9em;
-             line-height: 1.5;
-        }
+        .checkbox-group label, .radio-group label { display: inline-block; margin-right: 15px; font-weight: normal; font-size: 0.95em; margin-bottom: 5px; }
+        .checkbox-group input[type="checkbox"], .radio-group input[type="radio"] { margin-right: 5px; vertical-align: middle; }
+        .pep-details span, .pep-details label, .pep-details input { vertical-align: middle; }
+        .pep-details input { width: auto; display: inline-block; margin-left: 3px; margin-right: 10px; }
+        .signature-area { border: 1px dashed #ccc; height: 40px; margin-top: 5px; margin-bottom: 10px; background-color: #f8f8f8; display: flex; align-items: center; justify-content: center; color: #aaa; font-style: italic; font-size: 0.9em; }
+        .instructions, .disclosures { padding: 10px 0; border: none; margin-bottom: 15px; background-color: transparent; font-size: 0.9em; line-height: 1.5; }
         .disclosures p, .instructions p { margin-bottom: 0.8em;}
-
-        /* Footer */
-        .footer-text {
-            font-size: 0.8em;
-            color: #777;
-            text-align: center;
-            margin-top: 40px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-
-        /* Ensure grid behaves in Signer sections */
-        .signer-section-grid {
-            /* uses standard .grid-container */
-        }
-         /* Specific override for PEP section layout */
-        .pep-radio-group {
-            grid-column: span 4; /* Make PEP question span full width */
-            margin-top: 10px;
-        }
-         .pep-details { /* Container for the "If Yes: Position Relation Country" part */
-             margin-left: 10px;
-             display: inline; /* Keep on same line as radio */
-         }
-
-         /* Styling for dynamic grid rows (transfers, customers, vendors) */
-         .dynamic-grid-row {
-             display: grid;
-             /* Default to 4 columns + action */
-             grid-template-columns: repeat(4, 1fr) auto;
-             gap: 5px 15px;
-             align-items: baseline;
-             margin-bottom: 5px;
-             border-bottom: 1px dotted #eee; /* Light separator */
-             padding-bottom: 5px;
-         }
-         .dynamic-grid-row label { /* Hide labels in grid rows by default */
-              display: none;
-         }
-         .dynamic-grid-row input {
-             margin-bottom: 0; /* Remove default margin */
-         }
-         /* Adjust columns for customer/vendor */
-         .customer-row, .vendor-row {
-             grid-template-columns: repeat(3, 1fr) auto;
-         }
-         /* Hide unnecessary grid cells if template changes */
-          .dynamic-grid-row > div:last-child { /* Target action button container */
-              margin-left: auto;
-          }
-
-          /* Small style adjustments for specific tables */
-          #foreseenActivityTable {
-              border-top: 1px solid #ccc;
-              padding-top: 10px;
-              margin-top: 1.5em;
-          }
-          #foreseenActivityTable input[type="number"] {
-               width: 80%; /* Slightly smaller number inputs in table */
-          }
+        .footer-text { font-size: 0.8em; color: #777; text-align: center; margin-top: 40px; border-top: 1px solid #eee; padding-top: 15px; }
+        .signer-section-grid {}
+        .pep-radio-group { grid-column: span 4; margin-top: 10px; }
+        .pep-details { margin-left: 10px; display: inline; }
+         .dynamic-grid-row { display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 5px 15px; align-items: baseline; margin-bottom: 5px; border-bottom: 1px dotted #eee; padding-bottom: 5px; }
+         .dynamic-grid-row label { display: none; }
+         .dynamic-grid-row input { margin-bottom: 0; }
+         .customer-row, .vendor-row { grid-template-columns: repeat(3, 1fr) auto; }
+          #foreseenActivityTable { border-top: 1px solid #ccc; padding-top: 10px; margin-top: 1.5em; }
+          #foreseenActivityTable input[type="number"] { width: 80%; }
           #foreseenActivityTable .radio-group label { font-size: 0.9em; margin-right: 10px; }
+         /* Botón para generar PDF */
+         #pdfButtonContainer {
+             text-align: center;
+             margin: 40px 0 20px 0;
+         }
+         #generatePdfButton {
+             padding: 12px 25px;
+             font-size: 1.1em;
+             background-color: #2E3168;
+             color: white;
+             border: none;
+             border-radius: 5px;
+             cursor: pointer;
+         }
+         #generatePdfButton:hover {
+             background-color: #404488;
+         }
 
+        /* --- ESTILOS PARA IMPRESIÓN --- */
+        @media print {
+            body {
+                margin: 1.5cm; /* Márgenes de impresión */
+                padding-top: 0;
+                font-size: 9pt; /* Tamaño de fuente para impresión */
+                line-height: 1.4;
+                color: #000; /* Asegurar texto negro */
+                background-color: #fff; /* Asegurar fondo blanco */
+            }
+            #logo, #generatePdfButton, .add-button, .remove-button, .dynamic-controls {
+                display: none; /* Ocultar logo y botones */
+            }
+            h1, h2, h3 {
+                color: #000 !important; /* Títulos en negro para impresión */
+                margin-top: 1.5em;
+                margin-bottom: 1em;
+            }
+             h2 {
+                 page-break-before: always; /* Intentar iniciar secciones en página nueva */
+                 border-bottom: 1px solid #000; /* Borde inferior visible */
+             }
+             h1 { page-break-before: avoid; } /* No empezar con H1 en nueva pág si es el inicio */
+
+             input[type="text"], input[type="date"], input[type="tel"], input[type="email"], input[type="url"], input[type="number"], textarea, select {
+                 border-bottom: 1px solid #000 !important; /* Forzar borde visible */
+                 print-color-adjust: exact; /* Intentar forzar colores e imágenes de fondo */
+                 -webkit-print-color-adjust: exact;
+                 background-color: transparent !important;
+                 margin-bottom: 10px; /* Reducir espacio inferior */
+             }
+             /* Ajustar contenedores si es necesario para impresión */
+             .grid-container, .side-by-side-container, .dynamic-row, .dynamic-grid-row {
+                 page-break-inside: avoid; /* Intentar mantener juntos los elementos */
+             }
+              .side-by-side-container {
+                 display: block; /* Cambiar a bloque para impresión, uno debajo del otro */
+             }
+             .shareholder-section, .director-section {
+                 min-width: unset; /* Quitar min-width */
+                 page-break-inside: avoid;
+             }
+
+             .signature-area {
+                  background-color: #f0f0f0 !important; /* Intentar mantener fondo claro */
+                  border: 1px dashed #888 !important; /* Borde más visible */
+                  print-color-adjust: exact;
+                  -webkit-print-color-adjust: exact;
+             }
+
+             .footer-text {
+                  display: none; /* Opcional: ocultar footer si no es necesario */
+             }
+              /* Ajustar columnas de checkboxes si se ven mal */
+             div[style*="columns: 3"] {
+                  columns: 2 !important;
+                  -webkit-columns: 2 !important;
+                  -moz-columns: 2 !important;
+             }
+             /* Ocultar hr si causan saltos de página indeseados */
+             /* hr { display: none; } */
+        }
 
     </style>
 </head>
@@ -352,8 +174,7 @@
 
     <div id="app_date_container">
          <label for="app_date">Date</label>
-         <input type="date" id="app_date" name="app_date">
-    </div>
+         <input type="date" id="app_date" name="app_date" readonly> </div>
     <p style="margin-bottom: 25px; font-size: 0.9em;">Please complete the attached Certificate of Resolution and Certification of Beneficial Owner(s)</p>
 
     <div class="section">
@@ -670,62 +491,29 @@
     </div> <div class="section">
         <h2>SECTION III: Economic Activity Information</h2>
         <div class="grid-container">
-             <div class="grid-item span-1">
-                <label for="avg_income">Average annual income (USD)</label>
-                <input type="number" id="avg_income" name="avg_income" step="0.01">
-            </div>
-             <div class="grid-item span-1">
-                <label for="net_worth">Net worth (USD)</label>
-                <input type="number" id="net_worth" name="net_worth" step="0.01">
-            </div>
-             <div class="grid-item span-1">
-                <label for="assets">Assets (USD)</label>
-                <input type="number" id="assets" name="assets" step="0.01">
-            </div>
-             <div class="grid-item span-1">
-                <label for="liabilities">Liabilities (USD)</label>
-                <input type="number" id="liabilities" name="liabilities" step="0.01">
-            </div>
-            <div class="grid-item checkbox-group span-2">
+             <div class="grid-item span-1"><label for="avg_income">Average annual income (USD)</label><input type="number" id="avg_income" name="avg_income" step="0.01"></div>
+             <div class="grid-item span-1"><label for="net_worth">Net worth (USD)</label><input type="number" id="net_worth" name="net_worth" step="0.01"></div>
+             <div class="grid-item span-1"><label for="assets">Assets (USD)</label><input type="number" id="assets" name="assets" step="0.01"></div>
+             <div class="grid-item span-1"><label for="liabilities">Liabilities (USD)</label><input type="number" id="liabilities" name="liabilities" step="0.01"></div>
+             <div class="grid-item checkbox-group span-2">
                  <label>Source of wealth:</label>
                  <label><input type="checkbox" name="source_wealth[]" value="Business"> Business</label>
                  <label><input type="checkbox" name="source_wealth[]" value="Investments"> Investments</label>
                  <label><input type="checkbox" name="source_wealth[]" value="Other"> Other</label>
-            </div>
-            <div class="grid-item span-2">
-                 <label for="source_assets_explain">Explain source of assets</label>
-                 <input type="text" id="source_assets_explain" name="source_assets_explain">
-            </div>
-            <div class="grid-item span-4">
-                <label for="markets_served">Markets served</label>
-                 <input type="text" id="markets_served" name="markets_served">
-            </div>
+             </div>
+             <div class="grid-item span-2"><label for="source_assets_explain">Explain source of assets</label><input type="text" id="source_assets_explain" name="source_assets_explain"></div>
+             <div class="grid-item span-4"><label for="markets_served">Markets served</label><input type="text" id="markets_served" name="markets_served"></div>
         </div>
     </div>
 
      <div class="section">
         <h2>SECTION IV: Initial Deposit</h2>
          <div class="grid-container">
-             <div class="grid-item span-2">
-                <label for="initial_deposit_sender">Name/Entity sending the money</label>
-                <input type="text" id="initial_deposit_sender" name="initial_deposit_sender">
-            </div>
-             <div class="grid-item span-1">
-                <label for="initial_deposit_amount">Initial deposit amount (USD)</label>
-                <input type="number" id="initial_deposit_amount" name="initial_deposit_amount" step="0.01">
-            </div>
-             <div class="grid-item span-1">&nbsp;</div> <div class="grid-item span-2">
-                 <label for="initial_deposit_fi">Financial institution</label>
-                 <input type="text" id="initial_deposit_fi" name="initial_deposit_fi">
-             </div>
-             <div class="grid-item span-2">
-                 <label for="initial_deposit_country">Country</label>
-                 <input type="text" id="initial_deposit_country" name="initial_deposit_country">
-             </div>
-             <div class="grid-item span-4">
-                <label for="initial_deposit_origin">Explain origin or concept of the initial deposit</label>
-                <textarea id="initial_deposit_origin" name="initial_deposit_origin" rows="2"></textarea>
-            </div>
+             <div class="grid-item span-2"><label for="initial_deposit_sender">Name/Entity sending the money</label><input type="text" id="initial_deposit_sender" name="initial_deposit_sender"></div>
+             <div class="grid-item span-1"><label for="initial_deposit_amount">Initial deposit amount (USD)</label><input type="number" id="initial_deposit_amount" name="initial_deposit_amount" step="0.01"></div>
+             <div class="grid-item span-1">&nbsp;</div> <div class="grid-item span-2"><label for="initial_deposit_fi">Financial institution</label><input type="text" id="initial_deposit_fi" name="initial_deposit_fi"></div>
+             <div class="grid-item span-2"><label for="initial_deposit_country">Country</label><input type="text" id="initial_deposit_country" name="initial_deposit_country"></div>
+             <div class="grid-item span-4"><label for="initial_deposit_origin">Explain origin or concept of the initial deposit</label><textarea id="initial_deposit_origin" name="initial_deposit_origin" rows="2"></textarea></div>
          </div>
     </div>
 
@@ -750,257 +538,102 @@
 
          <h3 style="margin-top: 2.5em;">Information about the foreseen activity of the account</h3>
          <p>Complete all the transactions foreseen to be made. In the case of any foreseen transaction, please mark the option "None".</p>
-          <div id="foreseenActivityTable" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 5px 15px; align-items: end;">
-             <div style="font-weight: bold; font-size: 0.9em;">Transaction Type</div>
-             <div style="font-weight: bold; font-size: 0.9em;">No. of transactions</div>
-             <div style="font-weight: bold; font-size: 0.9em;">Total ($)</div>
-             <div style="font-weight: bold; font-size: 0.9em;">Frequency</div>
-             <div>Check deposits</div>
-             <div><input type="number" name="activity_check_deposits_no"></div>
-             <div><input type="number" name="activity_check_deposits_total" step="0.01"></div>
-             <div class="radio-group">
-                 <label><input type="radio" name="activity_check_deposits_freq" value="Monthly"> Monthly</label>
-                 <label><input type="radio" name="activity_check_deposits_freq" value="Annual"> Annual</label>
-                 <label><input type="radio" name="activity_check_deposits_freq" value="None" checked> None</label>
-             </div>
-             <div>Check payments</div>
-              <div><input type="number" name="activity_check_payments_no"></div>
-              <div><input type="number" name="activity_check_payments_total" step="0.01"></div>
-              <div class="radio-group">
-                  <label><input type="radio" name="activity_check_payments_freq" value="Monthly"> Monthly</label>
-                  <label><input type="radio" name="activity_check_payments_freq" value="Annual"> Annual</label>
-                  <label><input type="radio" name="activity_check_payments_freq" value="None" checked> None</label>
-              </div>
-              <div>Incoming transfers</div>
-               <div><input type="number" name="activity_incoming_transfers_no"></div>
-               <div><input type="number" name="activity_incoming_transfers_total" step="0.01"></div>
-               <div class="radio-group">
-                  <label><input type="radio" name="activity_incoming_transfers_freq" value="Monthly"> Monthly</label>
-                  <label><input type="radio" name="activity_incoming_transfers_freq" value="Annual"> Annual</label>
-                  <label><input type="radio" name="activity_incoming_transfers_freq" value="None" checked> None</label>
-              </div>
-              <div>Outgoing transfers</div>
-               <div><input type="number" name="activity_outgoing_transfers_no"></div>
-               <div><input type="number" name="activity_outgoing_transfers_total" step="0.01"></div>
-               <div class="radio-group">
-                  <label><input type="radio" name="activity_outgoing_transfers_freq" value="Monthly"> Monthly</label>
-                  <label><input type="radio" name="activity_outgoing_transfers_freq" value="Annual"> Annual</label>
-                  <label><input type="radio" name="activity_outgoing_transfers_freq" value="None" checked> None</label>
-               </div>
-               <div>Check Deposits, outside P.R./EE.UU</div>
-                <div><input type="number" name="activity_check_deposits_ext_no"></div>
-                <div><input type="number" name="activity_check_deposits_ext_total" step="0.01"></div>
-                <div class="radio-group">
-                  <label><input type="radio" name="activity_check_deposits_ext_freq" value="Monthly"> Monthly</label>
-                  <label><input type="radio" name="activity_check_deposits_ext_freq" value="Annual"> Annual</label>
-                  <label><input type="radio" name="activity_check_deposits_ext_freq" value="None" checked> None</label>
-               </div>
+         <div id="foreseenActivityTable" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 5px 15px; align-items: end;">
+             <div style="font-weight: bold; font-size: 0.9em;">Transaction Type</div><div style="font-weight: bold; font-size: 0.9em;">No. of transactions</div><div style="font-weight: bold; font-size: 0.9em;">Total ($)</div><div style="font-weight: bold; font-size: 0.9em;">Frequency</div>
+             <div>Check deposits</div><div><input type="number" name="activity_check_deposits_no"></div><div><input type="number" name="activity_check_deposits_total" step="0.01"></div><div class="radio-group"><label><input type="radio" name="activity_check_deposits_freq" value="Monthly"> Monthly</label><label><input type="radio" name="activity_check_deposits_freq" value="Annual"> Annual</label><label><input type="radio" name="activity_check_deposits_freq" value="None" checked> None</label></div>
+             <div>Check payments</div><div><input type="number" name="activity_check_payments_no"></div><div><input type="number" name="activity_check_payments_total" step="0.01"></div><div class="radio-group"><label><input type="radio" name="activity_check_payments_freq" value="Monthly"> Monthly</label><label><input type="radio" name="activity_check_payments_freq" value="Annual"> Annual</label><label><input type="radio" name="activity_check_payments_freq" value="None" checked> None</label></div>
+             <div>Incoming transfers</div><div><input type="number" name="activity_incoming_transfers_no"></div><div><input type="number" name="activity_incoming_transfers_total" step="0.01"></div><div class="radio-group"><label><input type="radio" name="activity_incoming_transfers_freq" value="Monthly"> Monthly</label><label><input type="radio" name="activity_incoming_transfers_freq" value="Annual"> Annual</label><label><input type="radio" name="activity_incoming_transfers_freq" value="None" checked> None</label></div>
+             <div>Outgoing transfers</div><div><input type="number" name="activity_outgoing_transfers_no"></div><div><input type="number" name="activity_outgoing_transfers_total" step="0.01"></div><div class="radio-group"><label><input type="radio" name="activity_outgoing_transfers_freq" value="Monthly"> Monthly</label><label><input type="radio" name="activity_outgoing_transfers_freq" value="Annual"> Annual</label><label><input type="radio" name="activity_outgoing_transfers_freq" value="None" checked> None</label></div>
+             <div>Check Deposits, outside P.R./EE.UU</div><div><input type="number" name="activity_check_deposits_ext_no"></div><div><input type="number" name="activity_check_deposits_ext_total" step="0.01"></div><div class="radio-group"><label><input type="radio" name="activity_check_deposits_ext_freq" value="Monthly"> Monthly</label><label><input type="radio" name="activity_check_deposits_ext_freq" value="Annual"> Annual</label><label><input type="radio" name="activity_check_deposits_ext_freq" value="None" checked> None</label></div>
          </div>
 
          <h3 style="margin-top: 2.5em;">Specify the Incoming recurring transfers.</h3>
-         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span>Financial Institution</span><span></span>
-         </div>
-         <div id="incomingTransfersContainer">
-             </div>
-          <div class="dynamic-controls">
-             <button type="button" class="button add-button" onclick="addRow('incomingTransfersContainer', 'incoming')">Add Incoming Transfer</button>
-         </div>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span>Financial Institution</span><span></span></div>
+         <div id="incomingTransfersContainer"></div>
+         <div class="dynamic-controls"><button type="button" class="button add-button" onclick="addRow('incomingTransfersContainer', 'incoming')">Add Incoming Transfer</button></div>
 
          <h3 style="margin-top: 2.5em;">Specify the Outgoing recurring transfers.</h3>
-         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span>Financial Institution</span><span></span>
-         </div>
-         <div id="outgoingTransfersContainer">
-             </div>
-         <div class="dynamic-controls">
-            <button type="button" class="button add-button" onclick="addRow('outgoingTransfersContainer', 'outgoing')">Add Outgoing Transfer</button>
-         </div>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span>Financial Institution</span><span></span></div>
+         <div id="outgoingTransfersContainer"></div>
+         <div class="dynamic-controls"><button type="button" class="button add-button" onclick="addRow('outgoingTransfersContainer', 'outgoing')">Add Outgoing Transfer</button></div>
 
-        <h3 style="margin-top: 2.5em;">Main customers</h3>
-         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span></span>
-         </div>
-        <div id="mainCustomersContainer">
-            </div>
-         <div class="dynamic-controls">
-             <button type="button" class="button add-button" onclick="addRow('mainCustomersContainer', 'customer')">Add Customer</button>
-         </div>
+         <h3 style="margin-top: 2.5em;">Main customers</h3>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span></span></div>
+         <div id="mainCustomersContainer"></div>
+         <div class="dynamic-controls"><button type="button" class="button add-button" onclick="addRow('mainCustomersContainer', 'customer')">Add Customer</button></div>
 
-        <h3 style="margin-top: 2.5em;">Main vendors</h3>
-         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span></span>
-         </div>
-        <div id="mainVendorsContainer">
-             </div>
-        <div class="dynamic-controls">
-            <button type="button" class="button add-button" onclick="addRow('mainVendorsContainer', 'vendor')">Add Vendor</button>
-         </div>
-
+         <h3 style="margin-top: 2.5em;">Main vendors</h3>
+         <div style="font-size: 0.85em; color: #444; display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 15px; margin-bottom: 5px;"> <span>Name</span><span>Country</span><span>Relationship</span><span></span></div>
+         <div id="mainVendorsContainer"></div>
+         <div class="dynamic-controls"><button type="button" class="button add-button" onclick="addRow('mainVendorsContainer', 'vendor')">Add Vendor</button></div>
 
          <h3 style="margin-top: 2.5em;">Transfer details</h3>
-          <div class="checkbox-group grid-container"> <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Intercompany"> Payment between companies</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Retailers"> Payment to retailers</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Remittance"> Remittance services</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Client Payments"> Client payments</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Merchandise"> Merchandise payments</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Repo"> Repurchase agreements</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Providers"> Payment to providers</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Securities"> Securities</label>
-             <label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Payroll"> Payroll payment</label>
-         </div>
-         <div class="grid-container">
-             <div class="grid-item span-2">
-                <label for="transfer_details_individuals">Transfers to individuals (explain)</label>
-                <input type="text" id="transfer_details_individuals" name="transfer_details_individuals">
-             </div>
-              <div class="grid-item span-2">
-                <label for="transfer_details_other">Other (explain)</label>
-                <input type="text" id="transfer_details_other" name="transfer_details_other">
-             </div>
-         </div>
+         <div class="checkbox-group grid-container"><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Intercompany"> Payment between companies</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Retailers"> Payment to retailers</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Remittance"> Remittance services</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Client Payments"> Client payments</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Merchandise"> Merchandise payments</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Repo"> Repurchase agreements</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Providers"> Payment to providers</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Securities"> Securities</label><label class="grid-item span-1"><input type="checkbox" name="transfer_details[]" value="Payroll"> Payroll payment</label></div>
+         <div class="grid-container"><div class="grid-item span-2"><label for="transfer_details_individuals">Transfers to individuals (explain)</label><input type="text" id="transfer_details_individuals" name="transfer_details_individuals"></div><div class="grid-item span-2"><label for="transfer_details_other">Other (explain)</label><input type="text" id="transfer_details_other" name="transfer_details_other"></div></div>
 
-
-         <div class="grid-container">
-             <div class="grid-item radio-group span-1">
-                 <label>Is there a seasonal variation in volume?</label>
-                 <label><input type="radio" name="seasonal_variation" value="Yes"> Yes</label>
-                 <label><input type="radio" name="seasonal_variation" value="No" checked> No</label>
-             </div>
-             <div class="grid-item span-3">
-                <label for="seasonal_variation_explain">If yes, please explain:</label>
-                <input type="text" id="seasonal_variation_explain" name="seasonal_variation_explain">
-             </div>
-         </div>
-
+         <div class="grid-container"><div class="grid-item radio-group span-1"><label>Is there a seasonal variation in volume?</label><label><input type="radio" name="seasonal_variation" value="Yes"> Yes</label><label><input type="radio" name="seasonal_variation" value="No" checked> No</label></div><div class="grid-item span-3"><label for="seasonal_variation_explain">If yes, please explain:</label><input type="text" id="seasonal_variation_explain" name="seasonal_variation_explain"></div></div>
 
          <label for="significant_transaction">Is there a significant transaction expected? (e.g., property purchase/sale, investment)</label>
          <textarea id="significant_transaction" name="significant_transaction" rows="2"></textarea>
 
          <label>Does your business perform any of the following activities? (Check all that apply).</label>
-         <div class="checkbox-group grid-container">
-             <label class="grid-item span-1"><input type="checkbox" name="business_activities[]" value="Money Order Check"> Sale of money orders/traveler's checks</label>
-             <label class="grid-item span-1"><input type="checkbox" name="business_activities[]" value="Money Transfer"> Money transfer</label>
-             <label class="grid-item span-1"><input type="checkbox" name="business_activities[]" value="Prepaid Card"> Sale of pre-paid card</label>
-         </div>
+         <div class="checkbox-group grid-container"><label class="grid-item span-1"><input type="checkbox" name="business_activities[]" value="Money Order Check"> Sale of money orders/traveler's checks</label><label class="grid-item span-1"><input type="checkbox" name="business_activities[]" value="Money Transfer"> Money transfer</label><label class="grid-item span-1"><input type="checkbox" name="business_activities[]" value="Prepaid Card"> Sale of pre-paid card</label></div>
     </div>
 
     <div class="section">
          <h2>SECTION VI: Disclosures</h2>
          <div class="disclosures">
-             <p><strong>Wire transfers.</strong> I hereby designate the following individuals as representatives, for the purpose of authorizing the wire transfer requests in my name. These representatives will remain authorized until I notify the Bank, in writing, of the revocation of the authorization of any of said representatives, in accordance to Section II of the attached contract.</p>
-             <p><strong>Certificate of legitimacy.</strong> I hereby swear under penalty of perjury, that all the information provided by me, collected and registered by Banco San Juan Internacional Inc. is correct and accurate, and that I acknowledge that any forgery or omission of information may result on the blocking of my account of all activity and immediately closed without previous notification in accordance to Section III of the contract.</p>
-             <p>I hereby declare under oath that the funds deposited in Banco San Juan Internacional, Inc. are of legal origin and a product of my own property.</p>
-             <p>I have read the above information, which I validate as authentic and reliable. I as well declare that I am aware of the civil and criminal consequences that could result from false or misleading information given.</p>
-             <p>I authorize Banco San Juan Internacional, Inc. to request, consult, gather and transmit information about my credit history and references as many times it is required by the banking regulatory entities and any other related authorities.</p>
+             <p><strong>Wire transfers.</strong> I hereby designate the following individuals as representatives...</p>
+             <p><strong>Certificate of legitimacy.</strong> I hereby swear under penalty of perjury...</p>
+             <p>I hereby declare under oath that the funds deposited...</p>
+             <p>I have read the above information, which I validate...</p>
+             <p>I authorize Banco San Juan Internacional, Inc. to request, consult, gather...</p>
          </div>
-         <p><strong>* The following signature(s) pertain to the selected product(s). Your signature(s) constitute(s) the authorization to the Bank, that the undersigner(s) is/are the authorized person(s). These signatures will be under custody of Banco San Juan Internacional, Inc. in San Juan, Puerto Rico.</strong></p>
-         <p><strong>BY SUBSCRIBING THIS DOCUMENT, I ACCEPT AND ACKNOWLEDGE THE VALIDITY OF ITS CONTENTS WITHIN THE SAME. AND MY SIGNATURE EVIDENCES MY AGREEMENT WITH THE DECLARATIONS, TERMS AND CONDITIONS DETAILED IN THE ATTACHED "DEPOSIT ACCOUNT CONTRACT BANCO SAN JUAN INTERNACIONAL".</strong></p>
+         <p><strong>* The following signature(s) pertain to the selected product(s)...</strong></p>
+         <p><strong>BY SUBSCRIBING THIS DOCUMENT, I ACCEPT AND ACKNOWLEDGE...</strong></p>
     </div>
 
      <div class="section">
         <h2>SECTION VII: Registered Signatures</h2>
-         <div class="radio-group">
-             <label><input type="radio" name="signature_type" value="Joint"> Joint</label>
-             <label><input type="radio" name="signature_type" value="Individual" checked> Individual</label>
-             <label><input type="radio" name="signature_type" value="Other"> Other</label>
-             <label for="signature_type_explain">Explain:</label>
-             <input type="text" id="signature_type_explain" name="signature_type_explain" class="small-input" style="display: inline-block; width: auto;">
-         </div>
+         <div class="radio-group"><label><input type="radio" name="signature_type" value="Joint"> Joint</label><label><input type="radio" name="signature_type" value="Individual" checked> Individual</label><label><input type="radio" name="signature_type" value="Other"> Other</label><label for="signature_type_explain">Explain:</label><input type="text" id="signature_type_explain" name="signature_type_explain" class="small-input" style="display: inline-block; width: auto;"></div>
          <p>The signatures to be registered in this section may include Account holder(s).</p>
-
           <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr auto; gap: 15px 20px; align-items: end; margin-top: 20px;">
-              <div><label>Names and surnames</label></div>
-              <div><label>Signature</label></div>
-              <div><label>Identification No.</label></div>
-              <div><label>Position</label></div>
-              <div><label>Date (mm/dd/yyyy)</label></div>
-              <div style="text-align:center;"><label>Account holder</label></div>
-
-              <div><input type="text" id="sigA_name" name="sigA_name"></div>
-              <div><div class="signature-area"></div></div>
-              <div><input type="text" id="sigA_id" name="sigA_id"></div>
-              <div><input type="text" id="sigA_position" name="sigA_position"></div>
-              <div><input type="date" id="sigA_date" name="sigA_date"></div>
-              <div style="text-align: center;"><input type="checkbox" name="sigA_is_holder" value="Yes"></div>
-
-              <div><input type="text" id="sigB_name" name="sigB_name"></div>
-              <div><div class="signature-area"></div></div>
-              <div><input type="text" id="sigB_id" name="sigB_id"></div>
-              <div><input type="text" id="sigB_position" name="sigB_position"></div>
-              <div><input type="date" id="sigB_date" name="sigB_date"></div>
-              <div style="text-align: center;"><input type="checkbox" name="sigB_is_holder" value="Yes"></div>
-
-               <div><input type="text" id="sigC_name" name="sigC_name"></div>
-               <div><div class="signature-area"></div></div>
-               <div><input type="text" id="sigC_id" name="sigC_id"></div>
-               <div><input type="text" id="sigC_position" name="sigC_position"></div>
-               <div><input type="date" id="sigC_date" name="sigC_date"></div>
-               <div style="text-align: center;"><input type="checkbox" name="sigC_is_holder" value="Yes"></div>
-
-                <div><input type="text" id="sigD_name" name="sigD_name"></div>
-                <div><div class="signature-area"></div></div>
-                <div><input type="text" id="sigD_id" name="sigD_id"></div>
-                <div><input type="text" id="sigD_position" name="sigD_position"></div>
-                <div><input type="date" id="sigD_date" name="sigD_date"></div>
-                <div style="text-align: center;"><input type="checkbox" name="sigD_is_holder" value="Yes"></div>
+              <div><label>Names and surnames</label></div><div><label>Signature</label></div><div><label>Identification No.</label></div><div><label>Position</label></div><div><label>Date (mm/dd/yyyy)</label></div><div style="text-align:center;"><label>Account holder</label></div>
+              <div><input type="text" id="sigA_name" name="sigA_name"></div><div><div class="signature-area"></div></div><div><input type="text" id="sigA_id" name="sigA_id"></div><div><input type="text" id="sigA_position" name="sigA_position"></div><div><input type="date" id="sigA_date" name="sigA_date"></div><div style="text-align: center;"><input type="checkbox" name="sigA_is_holder" value="Yes"></div>
+              <div><input type="text" id="sigB_name" name="sigB_name"></div><div><div class="signature-area"></div></div><div><input type="text" id="sigB_id" name="sigB_id"></div><div><input type="text" id="sigB_position" name="sigB_position"></div><div><input type="date" id="sigB_date" name="sigB_date"></div><div style="text-align: center;"><input type="checkbox" name="sigB_is_holder" value="Yes"></div>
+              <div><input type="text" id="sigC_name" name="sigC_name"></div><div><div class="signature-area"></div></div><div><input type="text" id="sigC_id" name="sigC_id"></div><div><input type="text" id="sigC_position" name="sigC_position"></div><div><input type="date" id="sigC_date" name="sigC_date"></div><div style="text-align: center;"><input type="checkbox" name="sigC_is_holder" value="Yes"></div>
+              <div><input type="text" id="sigD_name" name="sigD_name"></div><div><div class="signature-area"></div></div><div><input type="text" id="sigD_id" name="sigD_id"></div><div><input type="text" id="sigD_position" name="sigD_position"></div><div><input type="date" id="sigD_date" name="sigD_date"></div><div style="text-align: center;"><input type="checkbox" name="sigD_is_holder" value="Yes"></div>
           </div>
     </div>
 
     <div class="section">
         <h2>SECTION VIII: Only to be used by the Executive/Representative/Witness</h2>
-        <div class="grid-container" style="grid-template-columns: 2fr 1fr 1fr; align-items: end;"> <div class="grid-item">
-                <label for="exec_name">Names and surnames of the executive/representative/witness</label>
-                <input type="text" id="exec_name" name="exec_name">
-            </div>
-             <div class="grid-item">
-                 <label for="exec_signature">Signature</label>
-                 <div class="signature-area"></div>
-             </div>
-             <div class="grid-item">
-                 <label for="exec_date">Date (mm/dd/yyyy)</label>
-                 <input type="date" id="exec_date" name="exec_date">
-             </div>
+        <div class="grid-container" style="grid-template-columns: 2fr 1fr 1fr; align-items: end;">
+             <div class="grid-item"><label for="exec_name">Names and surnames of the executive/representative/witness</label><input type="text" id="exec_name" name="exec_name"></div>
+             <div class="grid-item"><label for="exec_signature">Signature</label><div class="signature-area"></div></div>
+             <div class="grid-item"><label for="exec_date">Date (mm/dd/yyyy)</label><input type="date" id="exec_date" name="exec_date"></div>
         </div>
     </div>
 
      <div class="section">
         <h2>SECTION IX: For Internal Use</h2>
-         <div class="grid-container internal-use-grid" style="grid-template-columns: repeat(3, 1fr); align-items: end;"> <div class="grid-item">
-                <label for="internal_customer_no">Customer number</label>
-                <input type="text" id="internal_customer_no" name="internal_customer_no">
-            </div>
-             <div class="grid-item">
-                <label for="internal_account_no">Account number</label>
-                <input type="text" id="internal_account_no" name="internal_account_no">
-            </div>
-             <div class="grid-item">
-                 <label for="internal_date_opened">Date opened</label>
-                 <input type="date" id="internal_date_opened" name="internal_date_opened">
-             </div>
+         <div class="grid-container internal-use-grid" style="grid-template-columns: repeat(3, 1fr); align-items: end;">
+            <div class="grid-item"><label for="internal_customer_no">Customer number</label><input type="text" id="internal_customer_no" name="internal_customer_no"></div>
+            <div class="grid-item"><label for="internal_account_no">Account number</label><input type="text" id="internal_account_no" name="internal_account_no"></div>
+            <div class="grid-item"><label for="internal_date_opened">Date opened</label><input type="date" id="internal_date_opened" name="internal_date_opened"></div>
+            <hr style="grid-column: 1 / -1; border-top: 1px dashed #ccc; margin: 15px 0;">
+            <div class="grid-item"><label for="internal_reviewed_by">Reviewed by: Names Officer 1</label><input type="text" id="internal_reviewed_by" name="internal_reviewed_by"></div>
+            <div class="grid-item"><label for="internal_reviewed_sig">Signature</label><div class="signature-area"></div></div>
+            <div class="grid-item"><label for="internal_reviewed_date">Date (mm/dd/yyyy)</label><input type="date" id="internal_reviewed_date" name="internal_reviewed_date"></div>
+            <hr style="grid-column: 1 / -1; border-top: 1px dashed #ccc; margin: 15px 0;">
+            <div class="grid-item"><label for="internal_approved_by">Approved by: Names Officer 2</label><input type="text" id="internal_approved_by" name="internal_approved_by"></div>
+            <div class="grid-item"><label for="internal_approved_sig">Signature</label><div class="signature-area"></div></div>
+            <div class="grid-item"><label for="internal_approved_date">Date (mm/dd/yyyy)</label><input type="date" id="internal_approved_date" name="internal_approved_date"></div>
+         </div>
+    </div>
 
-             <hr style="grid-column: 1 / -1; border-top: 1px dashed #ccc; margin: 15px 0;"> <div class="grid-item">
-                <label for="internal_reviewed_by">Reviewed by: Names Officer 1</label>
-                <input type="text" id="internal_reviewed_by" name="internal_reviewed_by">
-            </div>
-             <div class="grid-item">
-                 <label for="internal_reviewed_sig">Signature</label>
-                 <div class="signature-area"></div>
-             </div>
-             <div class="grid-item">
-                 <label for="internal_reviewed_date">Date (mm/dd/yyyy)</label>
-                 <input type="date" id="internal_reviewed_date" name="internal_reviewed_date">
-             </div>
-
-             <hr style="grid-column: 1 / -1; border-top: 1px dashed #ccc; margin: 15px 0;"> <div class="grid-item">
-                <label for="internal_approved_by">Approved by: Names Officer 2</label>
-                <input type="text" id="internal_approved_by" name="internal_approved_by">
-            </div>
-             <div class="grid-item">
-                 <label for="internal_approved_sig">Signature</label>
-                 <div class="signature-area"></div>
-             </div>
-             <div class="grid-item">
-                 <label for="internal_approved_date">Date (mm/dd/yyyy)</label>
-                 <input type="date" id="internal_approved_date" name="internal_approved_date">
-             </div>
-        </div>
+    <div id="pdfButtonContainer">
+        <button type="button" id="generatePdfButton">Generar PDF (Usar Imprimir)</button>
     </div>
 
     <div class="footer-text">
@@ -1009,105 +642,55 @@
 
     <script>
         // --- JavaScript for Dynamic Tables ---
-
-        // Define the structure for each dynamic table row
          const dynamicRowTemplates = {
-             shareholder: `
-                 <div class="dynamic-row shareholder-row">
-                     <div class="shareholder-name"><label style="display:none;">Name</label><input type="text" name="shareholder_name[]" placeholder=" "></div>
-                     <div class="shareholder-percentage"><label style="display:none;">%</label><input type="number" name="shareholder_percentage[]" placeholder=" " min="0" max="100" step="0.01"></div>
-                     <div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div>
-                 </div>
-             `,
-             director: `
-                  <div class="dynamic-row director-row">
-                     <div class="director-name"><label style="display:none;">Name</label><input type="text" name="director_name[]" placeholder=" "></div>
-                     <div class="director-position"><label style="display:none;">Position</label><input type="text" name="director_position[]" placeholder=" "></div>
-                     <div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div>
-                 </div>
-             `,
-             incoming: `
-                 <div class="dynamic-grid-row incoming-transfer-row">
-                     <div><label>Name</label><input type="text" name="incoming_transfer_name[]" placeholder=" "></div>
-                     <div><label>Country</label><input type="text" name="incoming_transfer_country[]" placeholder=" "></div>
-                     <div><label>Relationship</label><input type="text" name="incoming_transfer_relationship[]" placeholder=" "></div>
-                     <div><label>Financial Institution</label><input type="text" name="incoming_transfer_fi[]" placeholder=" "></div>
-                     <div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div>
-                 </div>
-             `,
-              outgoing: `
-                 <div class="dynamic-grid-row outgoing-transfer-row">
-                     <div><label>Name</label><input type="text" name="outgoing_transfer_name[]" placeholder=" "></div>
-                     <div><label>Country</label><input type="text" name="outgoing_transfer_country[]" placeholder=" "></div>
-                     <div><label>Relationship</label><input type="text" name="outgoing_transfer_relationship[]" placeholder=" "></div>
-                     <div><label>Financial Institution</label><input type="text" name="outgoing_transfer_fi[]" placeholder=" "></div>
-                     <div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div>
-                 </div>
-             `,
-              customer: `
-                  <div class="dynamic-grid-row customer-row">
-                     <div><label>Name</label><input type="text" name="customer_name[]" placeholder=" "></div>
-                     <div><label>Country</label><input type="text" name="customer_country[]" placeholder=" "></div>
-                     <div><label>Relationship</label><input type="text" name="customer_relationship[]" placeholder=" "></div>
-                     <div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div>
-                 </div>
-             `,
-              vendor: `
-                  <div class="dynamic-grid-row vendor-row">
-                     <div><label>Name</label><input type="text" name="vendor_name[]" placeholder=" "></div>
-                     <div><label>Country</label><input type="text" name="vendor_country[]" placeholder=" "></div>
-                     <div><label>Relationship</label><input type="text" name="vendor_relationship[]" placeholder=" "></div>
-                     <div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div>
-                 </div>
-             `
+             shareholder: ` <div class="dynamic-row shareholder-row"><div class="shareholder-name"><label style="display:none;">Name</label><input type="text" name="shareholder_name[]" placeholder=" "></div><div class="shareholder-percentage"><label style="display:none;">%</label><input type="number" name="shareholder_percentage[]" placeholder=" " min="0" max="100" step="0.01"></div><div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div></div> `,
+             director: ` <div class="dynamic-row director-row"><div class="director-name"><label style="display:none;">Name</label><input type="text" name="director_name[]" placeholder=" "></div><div class="director-position"><label style="display:none;">Position</label><input type="text" name="director_position[]" placeholder=" "></div><div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div></div> `,
+             incoming: ` <div class="dynamic-grid-row incoming-transfer-row"><div><label>Name</label><input type="text" name="incoming_transfer_name[]" placeholder=" "></div><div><label>Country</label><input type="text" name="incoming_transfer_country[]" placeholder=" "></div><div><label>Relationship</label><input type="text" name="incoming_transfer_relationship[]" placeholder=" "></div><div><label>Financial Institution</label><input type="text" name="incoming_transfer_fi[]" placeholder=" "></div><div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div></div> `,
+             outgoing: ` <div class="dynamic-grid-row outgoing-transfer-row"><div><label>Name</label><input type="text" name="outgoing_transfer_name[]" placeholder=" "></div><div><label>Country</label><input type="text" name="outgoing_transfer_country[]" placeholder=" "></div><div><label>Relationship</label><input type="text" name="outgoing_transfer_relationship[]" placeholder=" "></div><div><label>Financial Institution</label><input type="text" name="outgoing_transfer_fi[]" placeholder=" "></div><div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div></div> `,
+             customer: ` <div class="dynamic-grid-row customer-row"><div><label>Name</label><input type="text" name="customer_name[]" placeholder=" "></div><div><label>Country</label><input type="text" name="customer_country[]" placeholder=" "></div><div><label>Relationship</label><input type="text" name="customer_relationship[]" placeholder=" "></div><div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div></div> `,
+             vendor: ` <div class="dynamic-grid-row vendor-row"><div><label>Name</label><input type="text" name="vendor_name[]" placeholder=" "></div><div><label>Country</label><input type="text" name="vendor_country[]" placeholder=" "></div><div><label>Relationship</label><input type="text" name="vendor_relationship[]" placeholder=" "></div><div class="action-button"><button type="button" class="button remove-button" onclick="removeSpecificRow(this)">X</button></div></div> `
          };
 
         function addRow(containerId, type) {
-            const container = document.getElementById(containerId);
-            if (!container) {
-                console.error("Container not found:", containerId);
-                return;
-            }
-
-            // Get the template HTML for the specific type
-            const templateHtml = dynamicRowTemplates[type];
-            if (!templateHtml) {
-                 console.error("Template not found for type:", type);
-                 return;
-            }
-
-            // Create a new div element and set its innerHTML
-            const newRowDiv = document.createElement('div');
-            // Need to wrap the template since innerHTML expects a single parent usually
-            newRowDiv.innerHTML = templateHtml.trim();
-
-             // Append the actual row element (which is the first child of the wrapper)
-             if (newRowDiv.firstChild) {
-                container.appendChild(newRowDiv.firstChild);
-             } else {
-                 console.error("Template HTML might be invalid or empty for type:", type);
-             }
+            const container = document.getElementById(containerId); if (!container) return;
+            const templateHtml = dynamicRowTemplates[type]; if (!templateHtml) return;
+            const newRowDiv = document.createElement('div'); newRowDiv.innerHTML = templateHtml.trim();
+            if (newRowDiv.firstChild) container.appendChild(newRowDiv.firstChild);
         }
-
 
         function removeSpecificRow(button) {
-            // Updated to find closest dynamic row based on new structures
-            const row = button.closest('.dynamic-row, .dynamic-grid-row');
-             if (row) {
-                 row.remove(); // Remove the row from the DOM
-             } else {
-                 console.error("Could not find dynamic row parent for removal button.");
-             }
+            const row = button.closest('.dynamic-row, .dynamic-grid-row'); if (row) row.remove();
         }
 
-         // Add one initial row for relevant dynamic sections on page load
          document.addEventListener('DOMContentLoaded', () => {
              addRow('mainShareholdersContainer', 'shareholder');
              addRow('boardOfDirectorsContainer', 'director');
-              addRow('incomingTransfersContainer', 'incoming');
-              addRow('outgoingTransfersContainer', 'outgoing');
-              addRow('mainCustomersContainer', 'customer');
-              addRow('mainVendorsContainer', 'vendor');
+             addRow('incomingTransfersContainer', 'incoming');
+             addRow('outgoingTransfersContainer', 'outgoing');
+             addRow('mainCustomersContainer', 'customer');
+             addRow('mainVendorsContainer', 'vendor');
+
+             // PDF Generation Button Listener
+             const pdfButton = document.getElementById('generatePdfButton');
+             if(pdfButton) {
+                 pdfButton.addEventListener('click', () => {
+                     // Get current date in YYYY-MM-DD format
+                     const today = new Date();
+                     // Adjust for timezone if needed, here using local time
+                     const offset = today.getTimezoneOffset();
+                     const todayLocal = new Date(today.getTime() - (offset*60*1000));
+                     const formattedDate = todayLocal.toISOString().split('T')[0];
+
+                     // Set the date field value
+                     const dateInput = document.getElementById('app_date');
+                     if(dateInput) {
+                         dateInput.value = formattedDate;
+                     }
+
+                     // Trigger browser print dialog
+                     window.print();
+                 });
+             }
          });
 
     </script>
